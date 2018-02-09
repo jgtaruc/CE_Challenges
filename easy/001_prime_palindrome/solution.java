@@ -4,18 +4,28 @@ public class solution {
     public static void main(String[] args) {
         int i = 0;
         for(i = n; i >= 3; i--) {
-            if(isPrime(i) && isPalindrome(i)) {
+            if(isPrime(i, 1) && isPalindrome(i)) {
                 System.out.println(i);
                 break;
             }
         }
     }
 
-    public static boolean isPrime(int n) {
-        //Fermat's little theorem
-        //this might fail because this solution only returns probablyPrime
-        boolean probablyPrime = Math.pow(2, n-1)%n == 1;    
-        return probablyPrime;
+    /*Fermat's little theorem
+    This might fail because this solution only returns probably prime numbers.
+    Higher k means higher accuracy
+    */
+    public static boolean isPrime(int n, int k) {
+        if(n == 2 || n == 3) return true;
+
+        while(k != 0) {
+            int a = 2 + (int)(Math.random() % (n - 4)); 
+            if(Math.pow(a, n-1) % n != 1) {
+                return false;
+            }
+            k--;
+        }
+        return true;
     }
 
     public static boolean isPalindrome(int n) {
